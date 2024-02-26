@@ -7,6 +7,7 @@ import App from './App.jsx'
 import './index.css'
 import ActiveReminders from './pages/ActiveReminders.jsx';
 import AllReminders from './pages/AllReminders.jsx';
+// import AddReminder from './components/AddReminder.jsx';
 import TodayReminders from './pages/TodayReminders.jsx'
 
 const router = createBrowserRouter([
@@ -22,6 +23,11 @@ const router = createBrowserRouter([
         path: "/all",
         element: <AllReminders />,
       },
+      // {
+      //   //this might have to be matching something
+      //   path: "/all/:reminderName",
+      //   element: <AddReminder />,
+      // },
       // {
       //   path: "/active",
       //   element: <ActiveReminders />,
