@@ -5,13 +5,14 @@ export default function Reminder({ reminder }) {
     const [buttonPopup, setButtonPopup] = useState(false);
 
     return (
-        <>
-            <a href={`/all`} >
-                <img src={reminder.icon} alt={reminder.name} />
+        <div className="card">
+            <a onClick={() => setButtonPopup(true)}>
                 <h3>{reminder.name}</h3>
-                <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>Add Reminder*</Popup>
+                <img src={reminder.icon} className="card-img-top reminder-card" alt={reminder.name} />
             </a>
-            <button onClick={() => setButtonPopup (true) }>Add Reminder</button>
-        </>
+                <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                    {reminder.name}
+                </Popup>
+        </div>
     )
 }
