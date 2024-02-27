@@ -3,7 +3,8 @@ export const reminders = [
         name: "Water",
         icon: "/water.gif",
         today: false,
-        active: false
+        active: false,
+        message: "Time to glug some water!"
     },
     {
         name: "Bedtime",
