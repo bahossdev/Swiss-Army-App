@@ -19,5 +19,3 @@ export const reminders = [
         active: false
     }
 ];
-
-// module.exports = reminders;
