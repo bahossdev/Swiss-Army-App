@@ -19,9 +19,9 @@ function App() {
       <main className="mx-3">
         <Outlet />
         {/* if datetime.now === */}
-        <Notification trigger={timedPopup} setTrigger={setTimedPopup}>
+        {/* <Notification trigger={timedPopup} setTrigger={setTimedPopup}>
           <p>Hi.</p>
-        </Notification>
+        </Notification> */}
       </main>
     </>
   );
