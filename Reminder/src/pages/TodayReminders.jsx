@@ -1,19 +1,32 @@
-
+import dayjs from 'dayjs';
 
 export default function TodayReminders() {
     const today = new Date();
-    console.log(today);
+    const setTomorrow = () => {
+        const d = new Date();
+        const UTCtomorrow = dayjs(d).add(1, 'day');
+        const tomorrow = UTCtomorrow.format('YYYY-MM-DD HH:mm:ss [UTC]');
+        return tomorrow;
+    }
+
+    const nextDay = setTomorrow();
+    console.log('nextDay', setTomorrow());
+    // console.log('current', today.getDate());
+    // console.log(today);
     const activeReminders = JSON.parse(localStorage.getItem('Active Reminders')) || [];
 
     const upcomingReminders = activeReminders.filter(activeReminder => {
         const reminderDate = new Date(activeReminder.startTime);
-        return reminderDate >= today;
+        console.log('reminder', reminderDate.getDate());
+        console.log( 'comparison', nextDay > reminderDate)
+        return  reminderDate >= today;
     });
 
-    const passedReminders = activeReminders.filter(activeReminder => {
-        const reminderDate = new Date(activeReminder.startTime);
-        return reminderDate < today;
-    });
+    // const passedReminders = activeReminders.filter(activeReminder => {
+    //     const reminderDate = new Date(activeReminder.startTime);
+    //     console.log('line 16', reminderDate);
+    //     return reminderDate < today;
+    // });
 
 
     return (
@@ -28,6 +41,15 @@ export default function TodayReminders() {
                         </div>
                     ))}
                 </div>
+                {/* <div className="row row-cols-1 row-cols-md-3 g-4">
+                    {passedReminders.map((reminder, index) => {
+                        { console.log('passedreminder: ', reminder) }
+                        <div key={index} className="card">
+                            {reminder.name}
+                        </div>
+
+                    })}
+                </div> */}
             </div>
         </div>
     );
