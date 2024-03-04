@@ -1,5 +1,5 @@
 import './popup.css/';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import Clock from './Clock'
 
@@ -8,8 +8,8 @@ export default function Popup(props) {
     const [interval, setInterval] = useState(1);
     const [intervalUnit, setIntervalUnit] = useState('minute');
     const [reminders, setReminders] = useState([]);
-    const [newRange, setRange] = useState([]);
-
+    const [start, setStart] = useState([]);
+    const [end, setEnd] = useState([]);
 
     const handleTypedInterval = (event) => {
         const value = parseInt(event.target.value);
@@ -28,6 +28,14 @@ export default function Popup(props) {
         }
     }
 
+    const handleStartTimeChange = (newValue) => {
+        setStart(newValue);
+    }
+
+    const handleEndTimeChange = (newValue) => {
+        setEnd(newValue);
+    }
+
     const addReminder = () => {
         // console.log(range);
         // console.log(newValue);
@@ -37,8 +45,8 @@ export default function Popup(props) {
             name: props.children,
             interval: interval,
             unit: intervalUnit,
-            // endTime: endTime
-            // range: [...range, newRange]
+            startTime: start.format("ddd MMM DD YYYY HH:mm:ss ZZ"),
+            endTime: end.format("ddd MMM DD YYYY HH:mm:ss ZZ"),
         }
         const activeReminders = JSON.parse(localStorage.getItem('Active Reminders')) || [];
         const updatedReminders = [...activeReminders, newReminder]
@@ -58,6 +66,11 @@ export default function Popup(props) {
         setIntervalUnit('minute');
         props.setTrigger(false);
     }
+
+    useEffect(() => {
+        console.log("Start Time:", start);
+        console.log("End Time:", end);
+    }, [start, end]);
 
     return (props.trigger) ? (
         <div className="popup">
@@ -87,18 +100,10 @@ export default function Popup(props) {
                         <option value="week">Week(s)</option>
                         <option value="month">Month(s)</option>
                     </select>
-                    {/* <input
-                        id="endTime"
-                        value={endTime}
-                        type='time'
-                        onChange={(event) => setEndTime(event.target.value)}>
-                    </input> */}
-                    <Clock
-                        // value={newRange}
-                        // label="Controlled picker"
-                        // onChange={(newValue) => setRange(newValue)}
-                    />
-
+                    <label>Start Time:</label>
+                    <Clock label="Start Time" onTimeChange={handleStartTimeChange} />
+                    <label>End Time:</label>
+                    <Clock label="End Time" onTimeChange={handleEndTimeChange} />
                     <button onClick={() => addReminder()}>Add {props.children} Reminder</button>
                 </div>
             </div>

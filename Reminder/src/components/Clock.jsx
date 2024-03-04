@@ -2,24 +2,29 @@
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers';
-// import { StaticDateTimePicker } from '@mui/x-date-pickers/StaticDateTimePicker';
+import { StaticDateTimePicker } from '@mui/x-date-pickers/StaticDateTimePicker';
 import { useState } from 'react';
 
 
-export default function Clock() {
+export default function Clock(props) {
 
-    const [range, setRange] = useState([]);
-    console.log(range);
-    console.log("this one------: ",range.$d);
+    const [time, setTime] = useState([]);
+    // console.log(time);
+    // console.log("this one------: ", time.$d);
     // console.log(newValue);
+
+    const handleTimeChange = (newValue) => {
+        setTime(newValue);
+        props.onTimeChange(newValue);
+    }
+
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateTimePicker
-                orientation="portrait"
-                value={range}
+            <StaticDateTimePicker
+                orientation="landscape"
+                value={time}
                 label="Controlled picker"
-                onChange={(newValue) => setRange(newValue)}
-            />
+                onChange={handleTimeChange} />
         </LocalizationProvider>
     );
 }
